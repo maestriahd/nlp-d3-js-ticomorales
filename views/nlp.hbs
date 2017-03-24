@@ -1,28 +1,131 @@
-<h1>NLP</h1>
+<div>
+  <h1>Los datos en D3</h1>
+  <div id="viz"></div>
+  <!-- carga desde el servidor de D3 la librería -->
+  <!-- cabe anotar que esta podría estar alojada localmente en la carpeta -->
+  <!-- public del proyecto -->
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://unpkg.com/compromise/builds/compromise.min.js"></script>
+
+
+
+  <script type="text/javascript">
+  (function() {
+    // map tomado de p5.js
+    function map(n, start1, stop1, start2, stop2) {
+      return ((n-start1)/(stop1-start1))*(stop2-start2)+start2;
+    };
+
+
+
+    // Función encargadad de la visualización de datos por medio de D3
+    function viz(data){
+      // selecciona la división donde se inyectará el SVG
+      var svg = d3.select('#viz')
+        .append('svg') // agrega un elemento SVG
+        .attr('width', 960) // al SVG le agrega el atributo ancho
+        .attr('height', 250) // al SVG le agrega el atributo alto
+        .style("background-color", "#EDEDED");
+      var elem = svg.selectAll('g') // selecciona todos los elementos `g` (grupos)
+        .data(data) // enlaza los datos
+      var elemEnter = elem.enter()
+          .append('g') // agrega un grupo
+          .attr('transform', function(d,i){ // aplica una transformación al elemento
+            return "translate("+(175*i+75)+", 150)" // calcula la posción relativo a
+                                                  // los datos
+          })
+      var ciculo = elemEnter.append('circle') // agrega un circulo
+        .attr('stroke', 'black') // la línea de contorno será negra
+        .attr('fill', function(d){ // el color de relleno se aplica según el
+                                   // resultado de esta función
+          if(d.name === 'sustantivos'){     // si el elemento actual es el sustantivo
+            return 'orange'  // el color de relleno será verde
+          }
+          if(d.name === 'verbos'){     // si el elemento actual es el sustantivo
+            return 'green'  // el color de relleno será verde
+          }
+          if(d.name === 'Personas'){     // si el elemento actual es el sustantivo
+            return 'pink'  // el color de relleno será verde
+          }
+          if(d.name === 'Fechas'){     // si el elemento actual es el sustantivo
+            return 'yellow'  // el color de relleno será verde
+          }
+
+
+        })
+        .attr('r', function(d){ // el radio dependerá de los items en el array
+          return map(d.count, 0, 110, 10, 50)
+        })
+      // crea los textos etiquetando cada uno de los círculos
+      var txt = elemEnter.append('text') //agrega un elemento de tipo text
+        .attr('dy', -80) // la posición en y
+        .attr('dx', -30) // la posición en x
+        .attr('fill', 'grey')
+        .text(function(d){ // extrae el texto del parametro `name`
+          return d.name
+        })
+    }
+    // para inyectar información detallada del NLP
+    // var data = {
+    //   sustantivos: {{{ nouns}}}
+    // }
+    var data = [
+      {
+        count: {{nouns.length}},
+        name: 'sustantivos'
+      },
+      {
+        count: {{people.length}},
+        name: 'personas'
+      },
+      {
+        count: {{verbs.length}},
+        name: 'verbos'
+      },
+    ]
+    viz(data)
+  })();
+  </script>
+<h1>El desarrollo en NLP</h1>
+
+<h1>Texto original</h1>
+<textarea style="width:100%; height:250px;">
+{{txt}}
+</textarea>
 
 <!-- presenta la lista de sustantivos -->
 <h1>Sustantivos [{{nouns.length}}]</h1>
 <ul>
   {{#each nouns.list}}
   <li>
-    {{#each this.terms}}
-      {{this.text}}
-    {{/each}}
+    {{this}}
   </li>
   {{/each}}
 </ul>
-
+<h1>Verbos [{{verbs.length}}]</h1>
+<ul>
+  {{#each verbs.list}}
+  <li>
+    {{this}}
+  </li>
+  {{/each}}
+</ul>
+<!--<h1>Fechas [{{dates.length}}]</h1>
+<ul>
+  {{#each dates.list}}
+  <li>
+    {{this}}
+  </li>
+  {{/each}}
+</ul>-->
 <!-- presenta la lista de personas -->
 <h1>Personas [{{people.length}}]</h1>
 <ul>
   {{#each people.list}}
   <li>
-    {{#each this.terms}}
-      {{this.text}}
-    {{/each}}
+  {{this}}
   </li>
   {{/each}}
 </ul>
 
-<h1>Texto original</h1>
-{{txt}}
+</div>

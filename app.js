@@ -6,21 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('hbs');
-
-// IMPORTA RUTAS
-// las rutas son los archivos que ejecutan la lógica en el servidor
-// cuando un cliente hace una petición. Los archivos están guardados
-// en el directorio `routes`
-var index = require('./routes/index');
-var users = require('./routes/users');
-var gatos = require('./routes/gato');
-var omeka = require('./routes/omeka');
-var d3 = require('./routes/d3');
 var nlp = require('./routes/nlp');
-// **** PARA AGREGAR UNA NUEVA RUTA  ****
-// descomente y cambie los valores de la siguiente línea
-//var NOMBRE_RUTA = require('./routes/ARCHIVO_RUTA');
-
 var app = express();
 
 // Configura el motor de render de las vistas
@@ -51,15 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // INTEGRACION DE LAS RUTAS EN LA APLICACION
 // ejecuta el codigo de JS cuando es llamado desde una URL por el cliente
-app.use('/', index);
-app.use('/hola', users);
-app.use('/gatos', gatos);
-app.use('/omeka', omeka);
-app.use('/d3', d3);
 app.use('/nlp', nlp);
-// **** PARA AGREGAR UNA NUEVA RUTA  ****
-// descomente y cambie los valores de la siguiente línea
-// app.use('/DONDE?', NOMBRE_RUTA);
 
 
 // Rutinas para la detectar errores e informarlos al cliente
