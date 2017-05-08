@@ -32,9 +32,12 @@ La actividad a realizar durante esta semana es la creación de una visualizació
 
 |  Criterio  | %      |  Calificación |
 |----------|:-------------:|------:|
-| Redacción, ortografía, citación de fuentes |  40% | - |
-| Suficiencia en la implementación técnica Compromise, D3.js |    60%   | - |
-| ** Nota Final** | | -|
+| Redacción, ortografía, citación de fuentes |  40% | 4.5 |
+| Suficiencia en la implementación técnica D3.js |    60%   | 4.5 |
+| ** Nota Final** | | 4.5|
+
+El ejercicio cumple con lo esperado para la entrega en el nivel básico. Buen experimento de extracción de otras carácterísticas del texto.
+
 
 ## Recursos
 
